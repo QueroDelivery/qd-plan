@@ -1,0 +1,1 @@
+export { PlanAcaoTable } from './PlanAcaoTable';
