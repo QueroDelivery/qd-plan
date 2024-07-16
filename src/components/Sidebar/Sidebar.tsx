@@ -30,7 +30,7 @@ const items = [
     href: '/lead/view',
   },
   {
-    label: 'Logout',
+    label: 'Sair',
     icon: CiLogout,
     href: '/logout',
   },
