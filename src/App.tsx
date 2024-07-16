@@ -1,4 +1,5 @@
 import { Header } from './components/Header';
+import { PlanAcaoTable } from './components/PlanAcaoTable/PlanAcaoTable';
 import { Sidebar } from './components/Sidebar';
 
 function App() {
@@ -7,7 +8,9 @@ function App() {
       <Header />
       <div className="grid grid-cols-only-content lg:grid-cols-sidebar-content">
         <Sidebar />
-        <main>Teste</main>
+        <main className="container py-12 mx-auto min-w-[336px]">
+          <PlanAcaoTable />
+        </main>
       </div>
     </>
   );
