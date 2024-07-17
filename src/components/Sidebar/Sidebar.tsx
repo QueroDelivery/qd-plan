@@ -8,7 +8,7 @@ import {
 import { SidebarItem } from './components/SidebarItem';
 import { BrandLogo } from '../BrandLogo';
 
-const items = [
+ export const items = [
   {
     label: 'Minha Agenda',
     icon: CiCalendarDate,
