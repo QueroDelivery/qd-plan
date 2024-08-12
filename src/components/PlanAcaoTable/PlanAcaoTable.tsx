@@ -16,6 +16,7 @@ import { ArrowUpDown, ListFilter } from 'lucide-react';
 import { Button } from '../ui/button';
 import useAcaoModalStore from 'src/store/useAcaoModalStore';
 import { AcaoModal } from '../AcaoModal';
+import Loading from './components/Loading';
 
 export type PlanoAcao = {
   planoAcaoId: number;
@@ -186,7 +187,7 @@ const PlanAcaoTable = () => {
     onOpen(row);
   };
 
-  if (isLoading) return 'Loading...';
+  if (isLoading) return <Loading times={10} />;
 
   return (
     <>
