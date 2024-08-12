@@ -30,7 +30,7 @@ const Header = () => {
         <MenuBurguerButton isOpen={isOpen} toggleOpen={setIsOpen} />
       </div>
       {isOpen && (
-        <div className="fixed top-20 left-0 right-0 bottom-0 bg-white z-20 mt-2">
+        <div className="fixed top-20 left-0 right-0 bottom-0 bg-white z-20">
           <div className="flex flex-col">
             <ul>
               {items.map((item) => (
