@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { PlanoAcao, DataTable } from '../DataTable';
+import { DataTable } from '../DataTable';
 
 import {
   DropdownMenu,
@@ -14,8 +14,11 @@ import classNames from 'classnames';
 import { createColumnHelper } from '@tanstack/react-table';
 import { ArrowUpDown, ListFilter } from 'lucide-react';
 import { Button } from '../ui/button';
+import useAcaoModalStore from 'src/store/useAcaoModalStore';
+import { AcaoModal } from '../AcaoModal';
 
-type PlanoAcao = {
+export type PlanoAcao = {
+  planoAcaoId: number;
   nomeCriador: string;
   nomeExecutor: string;
   emailCriador: string | null;
@@ -31,6 +34,9 @@ type PlanoAcao = {
   como: string;
   status: string;
   observacao: string | null;
+  influencerId: string;
+  placeIds: string;
+  isCreditoFaturaPlace: number;
 };
 
 type PlanAcaoResponse = {
@@ -170,10 +176,28 @@ const columns = [
 ];
 
 const PlanAcaoTable = () => {
-  const { data } = useQuery({ queryKey: ['acoes'], queryFn: getPlanAcoes });
+  const { data, isLoading } = useQuery({
+    queryKey: ['acoes'],
+    queryFn: getPlanAcoes,
+  });
+  const { onOpen } = useAcaoModalStore();
 
-  if (!data) return null;
-  return <DataTable data={data} columns={columns} />;
+  const onRowClick = (row: PlanoAcao) => {
+    onOpen(row);
+  };
+
+  if (isLoading) return 'Loading...';
+
+  return (
+    <>
+      <DataTable
+        data={data as PlanoAcao[]}
+        columns={columns}
+        onRowClick={onRowClick}
+      />
+      <AcaoModal />
+    </>
+  );
 };
 
 export { PlanAcaoTable };
