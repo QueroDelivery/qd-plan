@@ -1,0 +1,1 @@
+export { AcoesForm } from './AcoesForm';

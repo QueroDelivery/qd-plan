@@ -1,5 +1,5 @@
 import { Header } from './components/Header';
-import { PlanAcaoTable } from './components/PlanAcaoTable/PlanAcaoTable';
+import { PlanAcaoTable } from './components/PlanAcaoTable';
 import { Sidebar } from './components/Sidebar';
 
 function App() {

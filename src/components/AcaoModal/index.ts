@@ -1,0 +1,1 @@
+export { AcaoModal } from './AcaoModal';

@@ -37,11 +37,13 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onRowClick: (row: TData) => void;
 }
 
 const DataTable = <TData, TValue>({
   data,
   columns,
+  onRowClick,
 }: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
@@ -77,8 +79,10 @@ const DataTable = <TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                  className="cursor-pointer"
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  onClick={() => onRowClick(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -94,7 +98,7 @@ const DataTable = <TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center "
+                  className="h-24 text-center"
                 >
                   Nenhum resultado encontrado.
                 </TableCell>
