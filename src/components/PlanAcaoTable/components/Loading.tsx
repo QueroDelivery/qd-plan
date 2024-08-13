@@ -12,4 +12,4 @@ const Loading = ({ times }: { times: number }) => {
   );
 };
 
-export default Loading;
+export { Loading };
