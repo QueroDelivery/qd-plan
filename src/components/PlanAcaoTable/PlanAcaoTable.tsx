@@ -16,9 +16,10 @@ import { ArrowUpDown, ListFilter } from 'lucide-react';
 import { Button } from '../ui/button';
 import useAcaoModalStore from 'src/store/useAcaoModalStore';
 import { AcaoModal } from '../AcaoModal';
-import Loading from './components/Loading';
+import { Loading } from './components/Loading';
 
 export type PlanoAcao = {
+  municipioId: string;
   planoAcaoId: number;
   nomeCriador: string;
   nomeExecutor: string;
