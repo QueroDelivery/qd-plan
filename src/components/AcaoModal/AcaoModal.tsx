@@ -15,7 +15,6 @@ import { Textarea } from 'src/components/ui/textarea';
 import { Input } from 'src/components/ui/input';
 
 import { useForm } from 'react-hook-form';
-import { Checkbox } from 'src/components/ui/checkbox';
 import {
   Popover,
   PopoverContent,
@@ -27,6 +26,7 @@ import { CalendarIcon } from 'lucide-react';
 import { cn } from 'src/lib/utils';
 import { ptBR } from 'date-fns/locale';
 import { Switch } from 'src/components/ui/switch';
+import { PlacesLancamentos } from './components/PlacesLancamentos';
 
 const AcaoModal = () => {
   const { isOpen, onClose, data } = useAcaoModalStore();
@@ -191,6 +191,9 @@ const AcaoModal = () => {
             )}
           />
         </div>
+        {form.watch('places') && (
+          <PlacesLancamentos municipioId={data?.municipioId as string} />
+        )}
         <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           <FormField
             control={form.control}
