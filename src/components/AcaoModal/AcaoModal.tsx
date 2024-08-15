@@ -192,7 +192,10 @@ const AcaoModal = () => {
           />
         </div>
         {form.watch('places') && (
-          <PlacesLancamentos municipioId={data?.municipioId as string} />
+          <PlacesLancamentos
+            placeIds={data?.placeIds as string}
+            municipioId={data?.municipioId as string}
+          />
         )}
         <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           <FormField
