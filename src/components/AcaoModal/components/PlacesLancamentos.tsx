@@ -25,7 +25,13 @@ const getAllPlacesByMunicipioId = async (municipioId: string) => {
   return response.data;
 };
 
-const PlacesLancamentos = ({ municipioId }: { municipioId: string }) => {
+const PlacesLancamentos = ({
+  municipioId,
+  placeIds,
+}: {
+  municipioId: string;
+  placeIds: string;
+}) => {
   const { data, isLoading } = useQuery({
     queryKey: ['places'],
     queryFn: () => getAllPlacesByMunicipioId(municipioId),
@@ -38,13 +44,22 @@ const PlacesLancamentos = ({ municipioId }: { municipioId: string }) => {
       </div>
     );
 
+  const options = data?.map((place) => {
+    return { value: place.placeId, label: place.nomeExibicao };
+  });
+
+  const arrPlaceIds = new Set(placeIds.split(','));
+
+  const defaultSelectValues = options?.filter((place) =>
+    arrPlaceIds.has(place.value)
+  );
+
   return (
     <div>
       <Select
+        defaultValue={defaultSelectValues}
         isMulti
-        options={data?.map((place) => {
-          return { value: place.placeId, label: place.nomeExibicao };
-        })}
+        options={options}
         name="places"
         className="basic-multi-select"
         classNamePrefix="select"
