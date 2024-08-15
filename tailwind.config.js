@@ -13,13 +13,13 @@ export default {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
+        '2xl': '1800px',
       },
     },
     extend: {
       gridTemplateColumns: {
         'only-content': 'auto',
-        'sidebar-content': '20rem auto',
+        'sidebar-content': '16rem auto',
       },
       colors: {
         border: 'hsl(var(--border))',
