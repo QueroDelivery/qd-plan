@@ -19,7 +19,7 @@ export default {
     extend: {
       gridTemplateColumns: {
         'only-content': 'auto',
-        'sidebar-content': '16rem auto',
+        'sidebar-content': '18rem auto',
       },
       colors: {
         border: 'hsl(var(--border))',
