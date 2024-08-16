@@ -8,7 +8,7 @@ import {
 import { SidebarItem } from './components/SidebarItem';
 import { BrandLogo } from '../BrandLogo';
 
- export const items = [
+export const items = [
   {
     label: 'Minha Agenda',
     icon: CiCalendarDate,
@@ -38,7 +38,7 @@ import { BrandLogo } from '../BrandLogo';
 
 const Sidebar = () => {
   return (
-    <aside className="bg-white hidden lg:flex lg:flex-col">
+    <aside className="bg-gray-100 hidden lg:flex lg:flex-col shadow-md">
       <div className="px-4 h-screen">
         <div className="px-5 py-4">
           <div className="mb-10 w-[150px]">
