@@ -69,7 +69,7 @@ const Modal = ({
 
   return createPortal(
     <div className="fixed inset-0 bg-neutral-800/70 overflox-x-hidden overflow-y-auto z-99 flex items-center justify-center">
-      <div className="relative w-full md:w-5/6 xl:w-3/5 mt-20 lg:my-6 mx-auto h-5/6">
+      <div className="relative w-full md:w-5/6 xl:w-3/5 mt-20 xl:my-6 mx-auto h-5/6">
         <div
           className={`translate duration-200 h-full ${
             showModal ? 'translate-y-0' : 'translate-y-full'
