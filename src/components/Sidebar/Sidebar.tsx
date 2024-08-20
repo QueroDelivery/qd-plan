@@ -38,7 +38,7 @@ export const items = [
 
 const Sidebar = () => {
   return (
-    <aside className="bg-gray-100 hidden lg:flex lg:flex-col shadow-md">
+    <aside className="bg-gray-100 hidden xl:flex xl:flex-col shadow-md">
       <div className="px-4 h-screen">
         <div className="px-5 py-4">
           <div className="mb-10 w-[150px]">
