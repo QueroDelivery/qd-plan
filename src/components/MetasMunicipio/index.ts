@@ -1,0 +1,1 @@
+export { MetasMunicipio } from './MetasMunicipio';
