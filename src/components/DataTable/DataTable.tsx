@@ -6,6 +6,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
   ColumnDef,
+  SortingState,
 } from '@tanstack/react-table';
 
 import {
@@ -34,27 +35,48 @@ import {
   ChevronsRight,
 } from 'lucide-react';
 
+import { CiFilter } from 'react-icons/ci';
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   onRowClick: (row: TData) => void;
+  initialSortingState: SortingState | undefined;
 }
 
 const DataTable = <TData, TValue>({
   data,
   columns,
   onRowClick,
+  initialSortingState,
 }: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
+    initialState: {
+      sorting: initialSortingState,
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
+
+  let name = 'registros encontrados';
+  if (table.getPrePaginationRowModel().rows.length === 1) {
+    name = 'registro encontrado';
+  }
+
   return (
     <>
+      <div className="mb-2">
+        <div className="flex justify-end p-2 items-center gap-2">
+          <CiFilter size={18} />
+          <p className="text-md text-gray-700/80">
+            {table.getPrePaginationRowModel().rows.length} {name}
+          </p>
+        </div>
+      </div>
       <div className="rounded-xl border shadow-md">
         <Table>
           <TableHeader>
