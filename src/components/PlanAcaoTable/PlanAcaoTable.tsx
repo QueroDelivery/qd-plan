@@ -37,7 +37,7 @@ export type PlanoAcao = {
   status: string;
   observacao: string | null;
   influencerId: string;
-  placeIds: string;
+  placeIds: string | null;
   isCreditoFaturaPlace: number;
 };
 
@@ -100,30 +100,30 @@ const columns = [
     header: 'Finalidade',
     cell: (props) => props.getValue(),
   }),
-  columnHelper.accessor('createdAt', {
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() =>
-            column.toggleSorting(
-              column.getIsSorted() === 'asc' || !column.getIsSorted()
-            )
-          }
-        >
-          Criado em
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: (props) => {
-      const date = props.getValue();
-      const formatedDate = new Date(date);
-      return (
-        <span className="px-4">{formatedDate.toLocaleDateString('pt-BR')}</span>
-      );
-    },
-  }),
+  // columnHelper.accessor('createdAt', {
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() =>
+  //           column.toggleSorting(
+  //             column.getIsSorted() === 'asc' || !column.getIsSorted()
+  //           )
+  //         }
+  //       >
+  //         Criado em
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     );
+  //   },
+  //   cell: (props) => {
+  //     const date = props.getValue();
+  //     const formatedDate = new Date(date);
+  //     return (
+  //       <span className="px-4">{formatedDate.toLocaleDateString('pt-BR')}</span>
+  //     );
+  //   },
+  // }),
   columnHelper.accessor('status', {
     header: ({ column }) => {
       return (
@@ -173,8 +173,28 @@ const columns = [
       );
       return renderedStatus;
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    sortingFn: (rowA, rowB, _columnId) => {
+      const statusA = rowA.original.status;
+      const statusB = rowB.original.status;
+      const statusOrder = [
+        'ATRASADO',
+        'NAO_INICIADA',
+        'EM_ANDAMENTO',
+        'CANCELADO',
+        'CONCLUIDO',
+      ];
+      return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
+    },
   }),
   //   columnHelper.display(),
+];
+
+const initialSortingState = [
+  {
+    id: 'status',
+    desc: false,
+  },
 ];
 
 const PlanAcaoTable = () => {
@@ -196,6 +216,7 @@ const PlanAcaoTable = () => {
         data={data as PlanoAcao[]}
         columns={columns}
         onRowClick={onRowClick}
+        initialSortingState={initialSortingState}
       />
       <AcaoModal />
     </>
