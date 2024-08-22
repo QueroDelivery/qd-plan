@@ -11,15 +11,15 @@ import {
 } from 'src/components/ui/form';
 
 import { Textarea } from 'src/components/ui/textarea';
-
 import { Input } from 'src/components/ui/input';
-
 import { useForm } from 'react-hook-form';
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from 'src/components/ui/popover';
+
 import { Calendar } from 'src/components/ui/calendar';
 import { Button } from 'src/components/ui/button';
 import { CalendarIcon } from 'lucide-react';
@@ -193,7 +193,7 @@ const AcaoModal = () => {
         </div>
         {form.watch('places') && (
           <PlacesLancamentos
-            placeIds={data?.placeIds as string}
+            placeIds={(data?.placeIds as string) || ''}
             municipioId={data?.municipioId as string}
           />
         )}
