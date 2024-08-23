@@ -41,7 +41,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   onRowClick: (row: TData) => void;
-  initialSortingState: SortingState | undefined;
+  initialSortingState?: SortingState;
 }
 
 const DataTable = <TData, TValue>({
@@ -69,7 +69,7 @@ const DataTable = <TData, TValue>({
 
   return (
     <>
-      <div className="mb-2">
+      <div className="my-4">
         <div className="flex justify-end p-2 items-center gap-2">
           <CiFilter size={18} />
           <p className="text-md text-gray-700/80">
