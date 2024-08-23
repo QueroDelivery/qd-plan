@@ -47,7 +47,9 @@ const AcoesDashboard = ({ data }: TAcoesDashboard) => {
   const valorDisponivel =
     totalInvestimentoPrevisto - totalInvestimentoRealizado;
 
-  console.log(totalInvestimentoPrevisto);
+  const pluralize = (count: number, singular: string, plural: string) => {
+    return count === 1 ? singular : plural;
+  };
 
   return (
     <div className="border-[1px] border-gray-200 p-6 rounded-xl shadow-md max-w-[800px]">
@@ -70,7 +72,8 @@ const AcoesDashboard = ({ data }: TAcoesDashboard) => {
               <li className="flex gap-1 items-center">
                 <TbPointFilled className="text-green-500" />
                 <p className="text-sm text-gray-500">
-                  {acoesConcluidas} concluídas{' '}
+                  {acoesConcluidas}{' '}
+                  {pluralize(acoesConcluidas, 'concluída', 'concluídas')}{' '}
                   <span>
                     ({((acoesConcluidas / totalAcoes) * 100).toFixed(2)}%)
                   </span>
@@ -79,7 +82,8 @@ const AcoesDashboard = ({ data }: TAcoesDashboard) => {
               <li className="flex gap-1 items-center">
                 <TbPointFilled className="text-red-500" />
                 <p className="text-sm text-gray-500 text-light">
-                  {acoesAtrasadas} atrasadas{' '}
+                  {acoesAtrasadas}{' '}
+                  {pluralize(acoesAtrasadas, 'atrasada', 'atrasadas')}{' '}
                   <span>
                     ({((acoesAtrasadas / totalAcoes) * 100).toFixed(2)}%)
                   </span>
@@ -88,7 +92,12 @@ const AcoesDashboard = ({ data }: TAcoesDashboard) => {
               <li className="flex gap-1 items-center">
                 <TbPointFilled className="text-orange-500" />
                 <p className="text-sm text-gray-500">
-                  {acoesNaoIniciadas} não iniciadas{' '}
+                  {acoesNaoIniciadas}{' '}
+                  {pluralize(
+                    acoesNaoIniciadas,
+                    'não iniciada',
+                    'não iniciadas'
+                  )}{' '}
                   <span>
                     ({((acoesNaoIniciadas / totalAcoes) * 100).toFixed(2)}%)
                   </span>
@@ -97,7 +106,8 @@ const AcoesDashboard = ({ data }: TAcoesDashboard) => {
               <li className="flex gap-1 items-center">
                 <TbPointFilled className="text-gray-500" />
                 <p className="text-sm text-gray-500">
-                  {acoesCanceladas} canceladas{' '}
+                  {acoesCanceladas}{' '}
+                  {pluralize(acoesCanceladas, 'cancelada', 'canceladas')}{' '}
                   <span>
                     ({((acoesCanceladas / totalAcoes) * 100).toFixed(2)}%)
                   </span>
