@@ -38,9 +38,9 @@ const DashboardMetas = ({
         <div className="flex flex-row items-center gap-2">
           <PiCurrencyDollarSimpleBold
             size={18}
-            className="text-purple-500 font-bold"
+            className="text-green-500 font-bold"
           />
-          <p className="text-sm text-purple-500">
+          <p className="text-sm text-gray-700/80">
             Resumo <strong>{title}</strong>
           </p>
         </div>
@@ -49,7 +49,7 @@ const DashboardMetas = ({
             <p className="text-md font-semibold text-gray-700/80">
               Indicadores:
             </p>
-            <GoGraph className="text-purple-500 mt-2" size={20} />
+            <GoGraph className="text-green-500 mt-2" size={20} />
           </div>
           <div className="flex flex-col justify-center">
             <div>
@@ -69,8 +69,8 @@ const DashboardMetas = ({
             <CircularProgressbar
               styles={buildStyles({
                 strokeLinecap: 'butt',
-                pathColor: '#7e22ce',
-                textColor: '#a855f7',
+                pathColor: '#22c55e',
+                textColor: '#22c55e',
                 textSize: '16',
               })}
               strokeWidth={15}
