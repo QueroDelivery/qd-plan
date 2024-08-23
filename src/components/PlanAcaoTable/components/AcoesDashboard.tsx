@@ -144,7 +144,7 @@ const AcoesDashboard = ({ data }: TAcoesDashboard) => {
               <p className="text-xs text-gray-500">Investimento Realizado</p>
             </div>
             <div>
-              <p className="text-md font-medium text-gray-700/80">
+              <p className="text-md font-medium text-green-500">
                 {valorDisponivel.toLocaleString('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
