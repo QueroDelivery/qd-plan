@@ -17,6 +17,7 @@ import { Button } from '../ui/button';
 import useAcaoModalStore from 'src/store/useAcaoModalStore';
 import { AcaoModal } from '../AcaoModal';
 import { Loading } from './components/Loading';
+import { AcoesDashboard } from './components/AcoesDashboard';
 
 export type PlanoAcao = {
   municipioId: string;
@@ -212,6 +213,7 @@ const PlanAcaoTable = () => {
 
   return (
     <>
+      <AcoesDashboard data={data as PlanoAcao[]} />
       <DataTable
         data={data as PlanoAcao[]}
         columns={columns}
