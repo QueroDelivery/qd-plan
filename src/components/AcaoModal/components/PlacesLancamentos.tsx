@@ -1,29 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import Select from 'react-select';
 import { ImSpinner8 } from 'react-icons/im';
-
-type Place = {
-  nomeExibicao: string;
-  placeId: string;
-};
-
-type PlacesByMunicipioResponse = {
-  r: boolean;
-  data: Place[];
-};
-
-const getAllPlacesByMunicipioId = async (municipioId: string) => {
-  const { data: response } = await axios.get<PlacesByMunicipioResponse>(
-    `https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getAllPlacesByMunicipioId?municipioId=${municipioId}`,
-    {
-      headers: {
-        Authorization: import.meta.env.VITE_AUTHORIZATION_TOKEN,
-      },
-    }
-  );
-  return response.data;
-};
+import usePlaces from 'src/hooks/usePlaces';
 
 const PlacesLancamentos = ({
   municipioId,
@@ -32,19 +9,16 @@ const PlacesLancamentos = ({
   municipioId: string;
   placeIds: string;
 }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['places'],
-    queryFn: () => getAllPlacesByMunicipioId(municipioId),
-  });
+  const placesQuery = usePlaces(municipioId);
 
-  if (isLoading)
+  if (placesQuery.isLoading)
     return (
       <div className="flex justify-center py-3">
         <ImSpinner8 className="animate-spin text-purple-500" size={24} />
       </div>
     );
 
-  const options = data?.map((place) => {
+  const options = placesQuery.data?.map((place) => {
     return { value: place.placeId, label: place.nomeExibicao };
   });
 
