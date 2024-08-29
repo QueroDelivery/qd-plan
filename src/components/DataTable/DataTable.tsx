@@ -35,8 +35,6 @@ import {
   ChevronsRight,
 } from 'lucide-react';
 
-import { CiFilter } from 'react-icons/ci';
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -62,16 +60,15 @@ const DataTable = <TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  let name = 'registros encontrados';
+  let name = 'registros';
   if (table.getPrePaginationRowModel().rows.length === 1) {
-    name = 'registro encontrado';
+    name = 'registro';
   }
 
   return (
     <>
-      <div className="my-4">
+      <div className="mb-4">
         <div className="flex justify-end p-2 items-center gap-2">
-          <CiFilter size={18} />
           <p className="text-md text-gray-700/80">
             {table.getPrePaginationRowModel().rows.length} {name}
           </p>
