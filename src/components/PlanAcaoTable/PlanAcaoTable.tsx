@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { DataTable } from '../DataTable';
 
 import {
@@ -16,48 +14,7 @@ import { ArrowUpDown, ListFilter } from 'lucide-react';
 import { Button } from '../ui/button';
 import useAcaoModalStore from 'src/store/useAcaoModalStore';
 import { AcaoModal } from '../AcaoModal';
-import { Loading } from './components/Loading';
-import { AcoesDashboard } from './components/AcoesDashboard';
-
-export type PlanoAcao = {
-  municipioId: string;
-  planoAcaoId: number;
-  nomeCriador: string;
-  nomeExecutor: string;
-  emailCriador: string | null;
-  acaoTipo: string;
-  comentario: string | null;
-  createdAt: string;
-  prazoInicio: string;
-  prazoFim: string;
-  onde: string;
-  acaoFinalidade: string;
-  quantoCusta: number;
-  valorRealizado: number | null;
-  como: string;
-  status: string;
-  observacao: string | null;
-  influencerId: string;
-  placeIds: string | null;
-  isCreditoFaturaPlace: number;
-};
-
-type PlanAcaoResponse = {
-  r: boolean;
-  data: PlanoAcao[];
-};
-
-const getPlanAcoes = async (): Promise<PlanoAcao[]> => {
-  const { data: response } = await axios.get<PlanAcaoResponse>(
-    import.meta.env.VITE_URL,
-    {
-      headers: {
-        Authorization: import.meta.env.VITE_AUTHORIZATION_TOKEN,
-      },
-    }
-  );
-  return response.data;
-};
+import { PlanoAcao } from 'src/hooks/useAcoes';
 
 const statusOptions = [
   {
@@ -198,24 +155,21 @@ const initialSortingState = [
   },
 ];
 
-const PlanAcaoTable = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['acoes'],
-    queryFn: getPlanAcoes,
-  });
+type TPlanAcaoTable = {
+  data: PlanoAcao[];
+};
+
+const PlanAcaoTable = ({ data }: TPlanAcaoTable) => {
   const { onOpen } = useAcaoModalStore();
 
   const onRowClick = (row: PlanoAcao) => {
     onOpen(row);
   };
 
-  if (isLoading) return <Loading times={10} />;
-
   return (
     <>
-      <AcoesDashboard data={data as PlanoAcao[]} />
       <DataTable
-        data={data as PlanoAcao[]}
+        data={data}
         columns={columns}
         onRowClick={onRowClick}
         initialSortingState={initialSortingState}
