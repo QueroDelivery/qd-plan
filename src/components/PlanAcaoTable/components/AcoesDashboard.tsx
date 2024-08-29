@@ -1,4 +1,4 @@
-import { PlanoAcao } from '../PlanAcaoTable';
+import type { PlanoAcao } from 'src/hooks/useAcoes';
 import { TbReportSearch, TbPointFilled } from 'react-icons/tb';
 
 type TAcoesDashboard = {
@@ -52,7 +52,7 @@ const AcoesDashboard = ({ data }: TAcoesDashboard) => {
   };
 
   return (
-    <div className="border-[1px] border-gray-200 p-6 rounded-xl shadow-md max-w-[800px]">
+    <div className="border-[1px] border-gray-200 p-6 rounded-xl shadow-md max-w-[920px]">
       <div className="flex flex-col">
         <div className="flex flex-row items-center gap-2">
           <TbReportSearch size={18} className="text-purple-500 font-bold" />
