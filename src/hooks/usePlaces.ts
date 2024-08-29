@@ -29,5 +29,6 @@ export default function usePlaces(municipioId: string) {
   return useQuery({
     queryKey: ['places'],
     queryFn: () => getAllPlacesByMunicipioId(municipioId),
+    refetchOnWindowFocus: false,
   });
 }
