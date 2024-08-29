@@ -42,7 +42,7 @@ const MetasMunicipio = () => {
   );
 
   return (
-    <div className="m-8 grid sm:grid-cols-1 min-[950px]:grid-cols-2 min-[1720px]:grid-cols-3 gap-5">
+    <div className="grid sm:grid-cols-1 min-[950px]:grid-cols-2 min-[1720px]:grid-cols-3 gap-5">
       {metasQuery.isLoading ? loading : content}
     </div>
   );
