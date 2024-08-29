@@ -1,6 +1,6 @@
 import { MetasMunicipio } from 'src/components/MetasMunicipio';
 import { PlanAcaoTable } from 'src/components/PlanAcaoTable';
-import { AcoesDashboard } from 'src/components/PlanAcaoTable/components/AcoesDashboard';
+import { AcoesDashboard } from 'src/components/AcoesDashboard';
 import { PlacesDashboard } from 'src/components/PlacesDashboard/PlacesDashboard';
 import useAcoes, { PlanoAcao } from 'src/hooks/useAcoes';
 import { Loading } from './components/Loading';

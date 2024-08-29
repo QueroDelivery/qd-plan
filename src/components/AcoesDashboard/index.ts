@@ -1,0 +1,1 @@
+export { AcoesDashboard } from './AcoesDashboard';
