@@ -38,27 +38,29 @@ export const items = [
 
 const Sidebar = () => {
   return (
-    <aside className="bg-gray-100 hidden xl:flex xl:flex-col shadow-md">
-      <div className="px-4 h-screen">
-        <div className="px-5 py-4">
-          <div className="mb-10 w-[150px]">
-            <BrandLogo />
+    <div className="hidden xl:flex xl:flex-col">
+      <aside className="fixed bg-gray-100 shadow-md">
+        <div className="px-4 h-screen">
+          <div className="px-5 py-4">
+            <div className="mb-10 w-[150px]">
+              <BrandLogo />
+            </div>
           </div>
+          <nav className="w-full">
+            <ul className="w-[250px]">
+              {items.map((item) => (
+                <SidebarItem
+                  label={item.label}
+                  icon={item.icon}
+                  href={item.href}
+                  key={item.href}
+                />
+              ))}
+            </ul>
+          </nav>
         </div>
-        <nav className="w-full">
-          <ul className="w-[250px]">
-            {items.map((item) => (
-              <SidebarItem
-                label={item.label}
-                icon={item.icon}
-                href={item.href}
-                key={item.href}
-              />
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </aside>
+      </aside>
+    </div>
   );
 };
 
