@@ -39,7 +39,7 @@ const getMetasByMunicipioId = async (
 
 export default function useMetas(municipioId: string) {
   return useQuery({
-    queryKey: ['metas'],
+    queryKey: ['metas', municipioId],
     queryFn: () => getMetasByMunicipioId(municipioId),
     refetchOnWindowFocus: false,
   });
