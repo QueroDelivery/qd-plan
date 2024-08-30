@@ -3,8 +3,8 @@ import { ImSpinner8 } from 'react-icons/im';
 import { DashboardMetas } from './components/DashboardMetas';
 import useMetas from 'src/hooks/useMetas';
 
-const MetasMunicipio = () => {
-  const metasQuery = useMetas('5ea31f471a1c270051bd4966');
+const MetasMunicipio = ({ municipioId }: { municipioId: string }) => {
+  const metasQuery = useMetas(municipioId);
 
   const loading = (
     <div className="col-span-full justify-self-center">
