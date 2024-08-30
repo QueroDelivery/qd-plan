@@ -6,9 +6,11 @@ import useAcoes, { PlanoAcao } from 'src/hooks/useAcoes';
 import { Loading } from './components/Loading';
 import Select from 'react-select';
 import { singleSelectStyles } from 'src/styles/selectStyles';
+import { useState } from 'react';
 
 const AcoesPage = () => {
-  const acoesQuery = useAcoes('5ea31f471a1c270051bd4966');
+  const [municipioId, setMunicipioId] = useState<string | null>(null);
+  const acoesQuery = useAcoes(municipioId || '');
 
   const options = [
     {
@@ -30,7 +32,9 @@ const AcoesPage = () => {
         <Select
           options={options}
           placeholder="Cidade"
+          isMulti={false}
           noOptionsMessage={() => 'Cidade não encontrada.'}
+          onChange={(option) => setMunicipioId(option?.value as string)}
           styles={singleSelectStyles}
         />
         <MetasMunicipio />
