@@ -45,7 +45,7 @@ const getAllAcoesByMunicipioId = async (
 
 export default function useAcoes(municipioId: string) {
   return useQuery({
-    queryKey: ['acoes'],
+    queryKey: ['acoes', municipioId],
     queryFn: () => getAllAcoesByMunicipioId(municipioId),
     refetchOnWindowFocus: false,
   });
