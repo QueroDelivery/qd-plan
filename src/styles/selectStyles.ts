@@ -9,7 +9,9 @@ export const singleSelectStyles: StylesConfig<{
     border: '1px solid rgba(209, 213, 219, 1)',
     boxShadow: 'none',
     ':hover': {
-      border: '1px solid rgba(156, 163, 175, 1)',
+      border: '1px solid rgba(209, 213, 219, 1)',
+      boxShadow:
+        '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
     },
   }),
   option: (baseStyles, { isDisabled, isSelected, isFocused }) => ({
@@ -26,8 +28,8 @@ export const singleSelectStyles: StylesConfig<{
       ...baseStyles[':active'],
       backgroundColor: !isDisabled
         ? isSelected
-          ? 'rgba(168, 85, 247, 0.5)'
-          : 'rgba(168, 85, 247, 0.8)'
+          ? 'rgba(168, 85, 247, 0.6)'
+          : 'rgba(168, 85, 247, 0.6)'
         : undefined,
     },
   }),
