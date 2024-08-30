@@ -27,7 +27,7 @@ const getAllPlacesByMunicipioId = async (
 
 export default function usePlaces(municipioId: string) {
   return useQuery({
-    queryKey: ['places'],
+    queryKey: ['places', municipioId],
     queryFn: () => getAllPlacesByMunicipioId(municipioId),
     refetchOnWindowFocus: false,
   });
