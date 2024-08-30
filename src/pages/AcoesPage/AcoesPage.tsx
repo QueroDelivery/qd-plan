@@ -46,7 +46,7 @@ const AcoesPage = () => {
               <AcoesDashboard data={acoesQuery.data as PlanoAcao[]} />
               <PlacesDashboard
                 data={acoesQuery.data as PlanoAcao[]}
-                municipioId="5ea31f471a1c270051bd4966"
+                municipioId={municipioId || ''}
               />
             </div>
             <PlanAcaoTable data={acoesQuery.data as PlanoAcao[]} />
