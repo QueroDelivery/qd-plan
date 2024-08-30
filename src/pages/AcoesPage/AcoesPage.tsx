@@ -4,9 +4,22 @@ import { AcoesDashboard } from 'src/components/AcoesDashboard';
 import { PlacesDashboard } from 'src/components/PlacesDashboard/PlacesDashboard';
 import useAcoes, { PlanoAcao } from 'src/hooks/useAcoes';
 import { Loading } from './components/Loading';
+import Select from 'react-select';
+import { singleSelectStyles } from 'src/styles/selectStyles';
 
 const AcoesPage = () => {
   const acoesQuery = useAcoes('5ea31f471a1c270051bd4966');
+
+  const options = [
+    {
+      value: '5ea31f471a1c270051bd4966',
+      label: 'SALGADO/SE',
+    },
+    {
+      value: '5fb90c531f9daa00a6a6e75b',
+      label: 'UNIÃO DOS PALMARES/AL',
+    },
+  ];
 
   return (
     <div className="flex flex-col overflow-x-hidden">
@@ -14,6 +27,12 @@ const AcoesPage = () => {
         Metas e ações
       </h1>
       <div className="container py-8 mx-auto min-w-[336px] space-y-8">
+        <Select
+          options={options}
+          placeholder="Cidade"
+          noOptionsMessage={() => 'Cidade não encontrada.'}
+          styles={singleSelectStyles}
+        />
         <MetasMunicipio />
         {acoesQuery.isLoading ? (
           <Loading times={10} />
