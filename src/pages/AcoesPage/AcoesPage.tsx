@@ -1,16 +1,11 @@
 import { MetasMunicipio } from 'src/components/MetasMunicipio';
-import { PlanAcaoTable } from 'src/components/PlanAcaoTable';
-import { AcoesDashboard } from 'src/components/AcoesDashboard';
-import { PlacesDashboard } from 'src/components/PlacesDashboard/PlacesDashboard';
-import useAcoes, { PlanoAcao } from 'src/hooks/useAcoes';
-import { Loading } from './components/Loading';
 import Select from 'react-select';
 import { singleSelectStyles } from 'src/styles/selectStyles';
 import { useState } from 'react';
+import { AcoesContent } from './components/AcoesContent';
 
 const AcoesPage = () => {
   const [municipioId, setMunicipioId] = useState<string | null>(null);
-  const acoesQuery = useAcoes(municipioId || '');
 
   const options = [
     {
@@ -24,7 +19,7 @@ const AcoesPage = () => {
   ];
 
   return (
-    <div className="flex flex-col overflow-x-hidden">
+    <div className="flex flex-col overflow-x-hidden min-h-[calc(100vh-5rem)]">
       <h1 className="text-xl md:text-2xl font-bold text-purple-500 px-6 py-4 border-b border-gray-300/60">
         Metas e ações
       </h1>
@@ -37,20 +32,15 @@ const AcoesPage = () => {
           onChange={(option) => setMunicipioId(option?.value as string)}
           styles={singleSelectStyles}
         />
-        <MetasMunicipio />
-        {acoesQuery.isLoading ? (
-          <Loading times={10} />
-        ) : (
+        {municipioId ? (
           <>
-            <div className="grid grid-cols-1 min-[1720px]:grid-cols-2 gap-6">
-              <AcoesDashboard data={acoesQuery.data as PlanoAcao[]} />
-              <PlacesDashboard
-                data={acoesQuery.data as PlanoAcao[]}
-                municipioId={municipioId || ''}
-              />
-            </div>
-            <PlanAcaoTable data={acoesQuery.data as PlanoAcao[]} />
+            <MetasMunicipio municipioId={municipioId} />
+            <AcoesContent municipioId={municipioId} />
           </>
+        ) : (
+          <p className="flex justify-center p-10 text-gray-700">
+            Por favor, selecione um município para ver os dados.
+          </p>
         )}
       </div>
     </div>
