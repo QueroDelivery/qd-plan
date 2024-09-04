@@ -24,10 +24,12 @@ type MetasMunicipioResponse = {
 };
 
 const getMetasByMunicipioId = async (
-  municipioId: string
+  municipioId: string,
+  month: number,
+  year: number
 ): Promise<MetasMunicipio[]> => {
   const { data: response } = await axios.get<MetasMunicipioResponse>(
-    `https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getMetas?municipioId=${municipioId}&mes=08&ano=2024`,
+    `https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getMetas?municipioId=${municipioId}&mes=${month}&ano=${year}`,
     {
       headers: {
         Authorization: import.meta.env.VITE_AUTHORIZATION_TOKEN,
@@ -37,10 +39,14 @@ const getMetasByMunicipioId = async (
   return response.data;
 };
 
-export default function useMetas(municipioId: string) {
+export default function useMetas(
+  municipioId: string,
+  month: number,
+  year: number
+) {
   return useQuery({
-    queryKey: ['metas', municipioId],
-    queryFn: () => getMetasByMunicipioId(municipioId),
+    queryKey: ['metas', municipioId, month, year],
+    queryFn: () => getMetasByMunicipioId(municipioId, month, year),
     refetchOnWindowFocus: false,
   });
 }
