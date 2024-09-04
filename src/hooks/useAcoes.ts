@@ -30,10 +30,12 @@ type PlanAcaoResponse = {
 };
 
 const getAllAcoesByMunicipioId = async (
-  municipioId: string
+  municipioId: string,
+  month: number,
+  year: number
 ): Promise<PlanoAcao[]> => {
   const { data: response } = await axios.get<PlanAcaoResponse>(
-    `https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getAllPlanoAcaoByMunicipioId?municipioId=${municipioId}&ano=2024&mes=08`,
+    `https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getAllPlanoAcaoByMunicipioId?municipioId=${municipioId}&ano=${year}&mes=${month}`,
     {
       headers: {
         Authorization: import.meta.env.VITE_AUTHORIZATION_TOKEN,
@@ -43,10 +45,14 @@ const getAllAcoesByMunicipioId = async (
   return response.data;
 };
 
-export default function useAcoes(municipioId: string) {
+export default function useAcoes(
+  municipioId: string,
+  month: number,
+  year: number
+) {
   return useQuery({
-    queryKey: ['acoes', municipioId],
-    queryFn: () => getAllAcoesByMunicipioId(municipioId),
+    queryKey: ['acoes', municipioId, month, year],
+    queryFn: () => getAllAcoesByMunicipioId(municipioId, month, year),
     refetchOnWindowFocus: false,
   });
 }
