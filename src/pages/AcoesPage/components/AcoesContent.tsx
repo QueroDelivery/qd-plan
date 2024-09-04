@@ -6,10 +6,12 @@ import { Loading } from './Loading';
 
 type TAcoesContent = {
   municipioId: string;
+  month: number;
+  year: number;
 };
 
-const AcoesContent = ({ municipioId }: TAcoesContent) => {
-  const acoesQuery = useAcoes(municipioId);
+const AcoesContent = ({ municipioId, month, year }: TAcoesContent) => {
+  const acoesQuery = useAcoes(municipioId, month, year);
 
   if (acoesQuery.isPending) {
     return <Loading times={10} />;
