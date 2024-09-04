@@ -17,6 +17,7 @@ import { cn } from 'src/lib/utils';
 const AcoesPage = () => {
   const [municipioId, setMunicipioId] = useState<string | null>(null);
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   const options = [
     {
@@ -28,6 +29,11 @@ const AcoesPage = () => {
       label: 'UNIÃO DOS PALMARES/AL',
     },
   ];
+
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    setPopoverOpen(false);
+  };
 
   return (
     <div className="flex flex-col overflow-x-hidden min-h-[calc(100vh-5rem)]">
@@ -43,7 +49,7 @@ const AcoesPage = () => {
           onChange={(option) => setMunicipioId(option?.value as string)}
           styles={singleSelectStyles}
         />
-        <Popover>
+        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
@@ -51,7 +57,9 @@ const AcoesPage = () => {
                 'w-full pl-3 text-left font-normal text-gray-500 hover:text-gray-500 text-md rounded hover:bg-transparent hover:shadow transition-all border-gray-300'
               )}
             >
-              {date && <span>Selecionar data</span>}
+              {date?.toLocaleDateString('pt-BR') || (
+                <span>Selecionar data</span>
+              )}
               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
             </Button>
           </PopoverTrigger>
@@ -60,9 +68,7 @@ const AcoesPage = () => {
               locale={ptBR}
               mode="single"
               selected={date}
-              onSelect={(date) => {
-                setDate(date);
-              }}
+              onSelect={handleDateSelect}
               disabled={(date) => date < new Date('1900-01-01')}
               initialFocus
             />
@@ -70,8 +76,16 @@ const AcoesPage = () => {
         </Popover>
         {municipioId ? (
           <>
-            <MetasMunicipio municipioId={municipioId} />
-            <AcoesContent municipioId={municipioId} />
+            <MetasMunicipio
+              municipioId={municipioId}
+              month={date!.getMonth() + 1}
+              year={date!.getFullYear()}
+            />
+            <AcoesContent
+              municipioId={municipioId}
+              month={date!.getMonth() + 1}
+              year={date!.getFullYear()}
+            />
           </>
         ) : (
           <p className="flex justify-center p-10 text-gray-700">
