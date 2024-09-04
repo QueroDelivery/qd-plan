@@ -5,8 +5,14 @@ import useMetas from 'src/hooks/useMetas';
 import { VscError } from 'react-icons/vsc';
 import { Button } from 'src/components/ui/button';
 
-const MetasMunicipio = ({ municipioId }: { municipioId: string }) => {
-  const metasQuery = useMetas(municipioId);
+type TMetasMunicipio = {
+  municipioId: string;
+  month: number;
+  year: number;
+};
+
+const MetasMunicipio = ({ municipioId, month, year }: TMetasMunicipio) => {
+  const metasQuery = useMetas(municipioId, month, year);
 
   const content = (
     <>
