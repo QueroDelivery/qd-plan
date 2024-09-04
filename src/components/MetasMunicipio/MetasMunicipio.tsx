@@ -1,9 +1,9 @@
 import 'react-circular-progressbar/dist/styles.css';
-import { ImSpinner8 } from 'react-icons/im';
 import { DashboardMetas } from './components/DashboardMetas';
 import useMetas from 'src/hooks/useMetas';
 import { VscError } from 'react-icons/vsc';
 import { Button } from 'src/components/ui/button';
+import { Loading } from './components/Loading';
 
 type TMetasMunicipio = {
   municipioId: string;
@@ -43,11 +43,7 @@ const MetasMunicipio = ({ municipioId, month, year }: TMetasMunicipio) => {
     </>
   );
 
-  const loading = (
-    <div className="flex justify-center">
-      <ImSpinner8 className="animate-spin text-purple-500" size={24} />
-    </div>
-  );
+  const loading = <Loading />;
 
   if (metasQuery.data) {
     return (
