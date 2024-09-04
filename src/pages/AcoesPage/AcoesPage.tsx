@@ -70,7 +70,7 @@ const AcoesPage = () => {
               selected={date}
               onSelect={handleDateSelect}
               disabled={(date) => date < new Date('1900-01-01')}
-              initialFocus
+              defaultMonth={date}
             />
           </PopoverContent>
         </Popover>
