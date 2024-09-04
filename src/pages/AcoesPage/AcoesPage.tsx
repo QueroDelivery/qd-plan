@@ -3,9 +3,20 @@ import Select from 'react-select';
 import { singleSelectStyles } from 'src/styles/selectStyles';
 import { useState } from 'react';
 import { AcoesContent } from './components/AcoesContent';
+import { Calendar } from 'src/components/ui/calendar';
+import { ptBR } from 'date-fns/locale';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from 'src/components/ui/popover';
+import { Button } from 'src/components/ui/button';
+import { CalendarIcon } from 'lucide-react';
+import { cn } from 'src/lib/utils';
 
 const AcoesPage = () => {
   const [municipioId, setMunicipioId] = useState<string | null>(null);
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   const options = [
     {
@@ -32,6 +43,31 @@ const AcoesPage = () => {
           onChange={(option) => setMunicipioId(option?.value as string)}
           styles={singleSelectStyles}
         />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                'w-full pl-3 text-left font-normal text-gray-500 hover:text-gray-500 text-md rounded hover:bg-transparent hover:shadow transition-all border-gray-300'
+              )}
+            >
+              {date && <span>Selecionar data</span>}
+              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              locale={ptBR}
+              mode="single"
+              selected={date}
+              onSelect={(date) => {
+                setDate(date);
+              }}
+              disabled={(date) => date < new Date('1900-01-01')}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
         {municipioId ? (
           <>
             <MetasMunicipio municipioId={municipioId} />
