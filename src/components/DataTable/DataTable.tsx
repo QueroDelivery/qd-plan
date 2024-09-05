@@ -40,6 +40,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   onRowClick: (row: TData) => void;
   initialSortingState?: SortingState;
+  filterSelect: React.ReactElement;
 }
 
 const DataTable = <TData, TValue>({
@@ -47,6 +48,7 @@ const DataTable = <TData, TValue>({
   columns,
   onRowClick,
   initialSortingState,
+  filterSelect,
 }: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
@@ -68,7 +70,8 @@ const DataTable = <TData, TValue>({
   return (
     <>
       <div className="mb-4">
-        <div className="flex justify-end p-2 items-center gap-2">
+        <div className="flex justify-between py-2 items-center gap-2">
+          <div className="w-80">{filterSelect}</div>
           <p className="text-md text-gray-700/80">
             {table.getPrePaginationRowModel().rows.length} {name}
           </p>
