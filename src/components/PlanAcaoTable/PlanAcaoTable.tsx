@@ -15,6 +15,8 @@ import { Button } from '../ui/button';
 import useAcaoModalStore from 'src/store/useAcaoModalStore';
 import { AcaoModal } from '../AcaoModal';
 import { PlanoAcao } from 'src/hooks/useAcoes';
+import { AcoesSelect, Option } from './components/AcoesSelect';
+import { useState } from 'react';
 
 const statusOptions = [
   {
@@ -161,6 +163,11 @@ type TPlanAcaoTable = {
 
 const PlanAcaoTable = ({ data }: TPlanAcaoTable) => {
   const { onOpen } = useAcaoModalStore();
+  const [selectedTipoAcao, setSelectedTipoAcao] = useState<Option | null>(null);
+
+  const filteredData = data.filter((acao) => {
+    return acao.acaoTipo === selectedTipoAcao?.label;
+  });
 
   const onRowClick = (row: PlanoAcao) => {
     onOpen(row);
@@ -169,7 +176,13 @@ const PlanAcaoTable = ({ data }: TPlanAcaoTable) => {
   return (
     <>
       <DataTable
-        data={data}
+        filterSelect={
+          <AcoesSelect
+            value={selectedTipoAcao as Option}
+            onChange={setSelectedTipoAcao}
+          />
+        }
+        data={selectedTipoAcao ? filteredData : data}
         columns={columns}
         onRowClick={onRowClick}
         initialSortingState={initialSortingState}
