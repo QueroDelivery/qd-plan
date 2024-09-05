@@ -75,7 +75,7 @@ const DashboardMetas = ({
               })}
               strokeWidth={15}
               value={metaAchievedSoFar}
-              text={`${metaAchievedSoFar.toFixed(2)}%`}
+              text={`${metaAchievedSoFar.toFixed(1)}%`}
             />
           </div>
         </div>
