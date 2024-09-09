@@ -26,7 +26,10 @@ const AcoesContent = ({ municipioId, month, year }: TAcoesContent) => {
           municipioId={municipioId}
         />
       </div>
-      <PlanAcaoTable data={acoesQuery.data as PlanoAcao[]} />
+      <PlanAcaoTable
+        data={acoesQuery.data as PlanoAcao[]}
+        municipioId={municipioId}
+      />
     </>
   );
 };
