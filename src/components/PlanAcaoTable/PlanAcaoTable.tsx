@@ -17,6 +17,7 @@ import { AcaoModal } from '../AcaoModal';
 import { PlanoAcao } from 'src/hooks/useAcoes';
 import { AcoesSelect, Option } from './components/AcoesSelect';
 import { useState } from 'react';
+import { PlacesSelect } from './components/PlacesSelect';
 
 const statusOptions = [
   {
@@ -159,30 +160,47 @@ const initialSortingState = [
 
 type TPlanAcaoTable = {
   data: PlanoAcao[];
+  municipioId: string;
 };
 
-const PlanAcaoTable = ({ data }: TPlanAcaoTable) => {
+const PlanAcaoTable = ({ data, municipioId }: TPlanAcaoTable) => {
   const { onOpen } = useAcaoModalStore();
   const [selectedTipoAcao, setSelectedTipoAcao] = useState<Option | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<Option | null>(null);
 
   const filteredData = data.filter((acao) => {
-    return acao.acaoTipo === selectedTipoAcao?.label;
+    const matchesTipoAcao =
+      !selectedTipoAcao || acao.acaoTipo === selectedTipoAcao?.label;
+    const matchesPlace =
+      !selectedPlace ||
+      acao.placeIds?.split(',').includes(selectedPlace?.value as string);
+
+    return matchesTipoAcao && matchesPlace;
   });
 
   const onRowClick = (row: PlanoAcao) => {
     onOpen(row);
   };
 
+  const selects = (
+    <div className="grid grid-cols-2 gap-6">
+      <AcoesSelect
+        value={selectedTipoAcao as Option}
+        onChange={setSelectedTipoAcao}
+      />
+      <PlacesSelect
+        value={selectedPlace as Option}
+        onChange={setSelectedPlace}
+        municipioId={municipioId}
+      />
+    </div>
+  );
+
   return (
     <>
       <DataTable
-        filterSelect={
-          <AcoesSelect
-            value={selectedTipoAcao as Option}
-            onChange={setSelectedTipoAcao}
-          />
-        }
-        data={selectedTipoAcao ? filteredData : data}
+        filterSelect={selects}
+        data={filteredData}
         columns={columns}
         onRowClick={onRowClick}
         initialSortingState={initialSortingState}
