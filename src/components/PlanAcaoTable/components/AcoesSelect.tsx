@@ -23,7 +23,7 @@ const AcoesSelect = ({ value, onChange }: TAcoesSelect) => {
 
   if (tipoAcoesQuery.isPending) {
     return (
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center">
         <ImSpinner8 className="animate-spin text-purple-500" size={24} />
       </div>
     );
