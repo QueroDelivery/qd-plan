@@ -71,7 +71,7 @@ const DataTable = <TData, TValue>({
     <>
       <div className="mb-4">
         <div className="flex justify-between py-2 items-center gap-2">
-          <div className="w-80">{filterSelect}</div>
+          <div className="w-[600px]">{filterSelect}</div>
           <p className="text-md text-gray-700/80">
             {table.getPrePaginationRowModel().rows.length} {name}
           </p>
