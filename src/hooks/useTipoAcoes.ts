@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import httpClient from 'src/axiosClient';
 
 type TipoAcao = {
   tipo: string;
@@ -8,14 +8,7 @@ type TipoAcao = {
 };
 
 const getAllTipoAcoes = async (): Promise<TipoAcao[]> => {
-  const { data } = await axios.get<TipoAcao[]>(
-    'https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getAllAcoes',
-    {
-      headers: {
-        Authorization: import.meta.env.VITE_AUTHORIZATION_TOKEN,
-      },
-    }
-  );
+  const { data } = await httpClient.get<TipoAcao[]>('/getAllAcoes');
   return data;
 };
 

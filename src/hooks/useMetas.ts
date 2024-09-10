@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import httpClient from 'src/axiosClient';
 
 type MetasMunicipio = {
   meta: number | null;
@@ -28,13 +28,8 @@ const getMetasByMunicipioId = async (
   month: number,
   year: number
 ): Promise<MetasMunicipio[]> => {
-  const { data: response } = await axios.get<MetasMunicipioResponse>(
-    `https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getMetas?municipioId=${municipioId}&mes=${month}&ano=${year}`,
-    {
-      headers: {
-        Authorization: import.meta.env.VITE_AUTHORIZATION_TOKEN,
-      },
-    }
+  const { data: response } = await httpClient.get<MetasMunicipioResponse>(
+    `/getMetas?municipioId=${municipioId}&mes=${month}&ano=${year}`
   );
   return response.data;
 };

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import httpClient from 'src/axiosClient';
 
 export type PlanoAcao = {
   municipioId: string;
@@ -34,13 +34,8 @@ const getAllAcoesByMunicipioId = async (
   month: number,
   year: number
 ): Promise<PlanoAcao[]> => {
-  const { data: response } = await axios.get<PlanAcaoResponse>(
-    `https://69p49iiw43.execute-api.us-east-2.amazonaws.com/getAllPlanoAcaoByMunicipioId?municipioId=${municipioId}&ano=${year}&mes=${month}`,
-    {
-      headers: {
-        Authorization: import.meta.env.VITE_AUTHORIZATION_TOKEN,
-      },
-    }
+  const { data: response } = await httpClient.get<PlanAcaoResponse>(
+    `/getAllPlanoAcaoByMunicipioId?municipioId=${municipioId}&ano=${year}&mes=${month}`
   );
   return response.data;
 };
