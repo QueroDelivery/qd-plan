@@ -68,14 +68,14 @@ const Modal = ({
   }
 
   return createPortal(
-    <div className="fixed inset-0 bg-neutral-800/70 overflox-x-hidden overflow-y-auto z-50 flex items-center justify-center">
-      <div className="relative w-full lg:w-5/6 xl:w-3/5 mx-auto my-auto h-auto">
+    <div className="fixed inset-0 bg-neutral-800/70 overflox-x-hidden overflow-y-auto z-50">
+      <div className="relative w-full lg:w-5/6 xl:w-3/5 mx-auto my-12">
         <div
           className={`translate duration-200 h-full ${
             showModal ? 'translate-y-0' : 'translate-y-full'
           }`}
         >
-          <div className="flex flex-col bg-white overflow-hidden rounded-3xl h-full pb-5">
+          <div className="flex flex-col bg-white overflow-hidden rounded-3xl h-full">
             {/* HEADER */}
             <div className="flex p-5 border-b">
               <p className="text-purple-500 font-bold text-lg">{title}</p>
