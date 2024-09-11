@@ -31,6 +31,10 @@ import { PlacesLancamentos } from './components/PlacesLancamentos';
 const AcaoModal = () => {
   const { isOpen, onClose, data } = useAcaoModalStore();
 
+  const countLines = (text: string) => {
+    return text.split('\n').length + 2;
+  };
+
   const formatDate = (date: string | Date) => {
     return new Intl.DateTimeFormat('pt-BR').format(new Date(date));
   };
@@ -50,6 +54,7 @@ const AcaoModal = () => {
       valorRealizado: data?.valorRealizado || 0,
       quantoCusta: data?.quantoCusta || 0,
       acaoFinalidade: data?.acaoFinalidade || '',
+      comentario: data?.comentario || '',
     },
   });
 
@@ -197,6 +202,7 @@ const AcaoModal = () => {
             municipioId={data?.municipioId as string}
           />
         )}
+        {form.watch('credito') && <div>Lançamentos</div>}
         <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           <FormField
             control={form.control}
@@ -337,9 +343,29 @@ const AcaoModal = () => {
                 <Textarea
                   className="resize-none border-input text-gray-700"
                   {...field}
-                  rows={7}
+                  rows={countLines(field.value)}
                   value={field.value}
                   onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="comentario"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-purple-500">Comentário</FormLabel>
+              <FormControl>
+                <Textarea
+                  className="resize-none border-input text-gray-700"
+                  {...field}
+                  rows={countLines(field.value)}
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder="Deixe seu comentário..."
                 />
               </FormControl>
               <FormMessage />
