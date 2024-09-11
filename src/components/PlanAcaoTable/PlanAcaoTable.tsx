@@ -3,14 +3,23 @@ import { DataTable } from '../DataTable';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
 
 import classNames from 'classnames';
 import { createColumnHelper } from '@tanstack/react-table';
-import { ArrowUpDown, ListFilter } from 'lucide-react';
+import {
+  ArrowUpDown,
+  Check,
+  ListFilter,
+  MoreHorizontal,
+  Trash2,
+} from 'lucide-react';
 import { Button } from '../ui/button';
 import useAcaoModalStore from 'src/store/useAcaoModalStore';
 import { AcaoModal } from '../AcaoModal';
@@ -49,6 +58,10 @@ const statusOptions = [
 const columnHelper = createColumnHelper<PlanoAcao>();
 
 const columns = [
+  columnHelper.accessor('planoAcaoId', {
+    header: 'Id',
+    cell: (props) => props.getValue(),
+  }),
   columnHelper.accessor('acaoTipo', {
     header: 'Ação',
     cell: (props) => props.getValue(),
@@ -57,34 +70,31 @@ const columns = [
     header: 'Criado por',
     cell: (props) => props.getValue(),
   }),
+  columnHelper.accessor('nomeExecutor', {
+    header: 'Execução',
+    cell: (props) => props.getValue(),
+  }),
   columnHelper.accessor('acaoFinalidade', {
     header: 'Finalidade',
     cell: (props) => props.getValue(),
   }),
-  // columnHelper.accessor('createdAt', {
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() =>
-  //           column.toggleSorting(
-  //             column.getIsSorted() === 'asc' || !column.getIsSorted()
-  //           )
-  //         }
-  //       >
-  //         Criado em
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   },
-  //   cell: (props) => {
-  //     const date = props.getValue();
-  //     const formatedDate = new Date(date);
-  //     return (
-  //       <span className="px-4">{formatedDate.toLocaleDateString('pt-BR')}</span>
-  //     );
-  //   },
-  // }),
+  columnHelper.accessor('prazoInicio', {
+    header: 'Data de início',
+    cell: (props) => {
+      const date = new Date(props.getValue());
+      return date.toLocaleDateString('pt-BR');
+    },
+  }),
+  columnHelper.accessor('valorRealizado', {
+    header: 'Valor realizado',
+    cell: (props) => {
+      const value = props.getValue() || 0;
+      return value.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      });
+    },
+  }),
   columnHelper.accessor('status', {
     header: ({ column }) => {
       return (
@@ -120,7 +130,7 @@ const columns = [
       const renderedStatus = (
         <div className="px-1">
           <span
-            className={classNames('ml-1 p-1 rounded-md text-white', {
+            className={classNames('ml-1 p-1 rounded-md text-white truncate', {
               'bg-green-500/70': updatedStatus === 'Concluido',
               'bg-gray-500/70': updatedStatus === 'Cancelado',
               'bg-red-500/70': updatedStatus === 'Atrasado',
@@ -148,7 +158,35 @@ const columns = [
       return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
     },
   }),
-  //   columnHelper.display(),
+  columnHelper.display({
+    id: 'actions',
+    cell: () => {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            onClick={(e) => e.stopPropagation()}
+            align="center"
+          >
+            <DropdownMenuItem className="flex items-center gap-2 text-green-500 focus:text-green-500">
+              <Check size={18} />
+              <span>Aprovar</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="flex items-center gap-2 text-red-500 focus:text-red-500">
+              <Trash2 size={18} />
+              <span>Excluir</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  }),
 ];
 
 const initialSortingState = [
