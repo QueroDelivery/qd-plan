@@ -19,6 +19,8 @@ const AcoesPage = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [popoverOpen, setPopoverOpen] = useState(false);
 
+  const currentDate = new Date().toLocaleDateString('pt-BR');
+
   const options = [
     {
       value: '5ea31f471a1c270051bd4966',
@@ -57,8 +59,10 @@ const AcoesPage = () => {
                 'w-full pl-3 text-left font-normal text-gray-500 hover:text-gray-500 text-md rounded hover:bg-transparent hover:shadow transition-all border-gray-300'
               )}
             >
-              {date?.toLocaleDateString('pt-BR') || (
-                <span>Selecionar data</span>
+              {date?.toLocaleDateString('pt-BR') === currentDate ? (
+                <span>Data Personalizada</span>
+              ) : (
+                date?.toLocaleDateString('pt-BR')
               )}
               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
             </Button>
