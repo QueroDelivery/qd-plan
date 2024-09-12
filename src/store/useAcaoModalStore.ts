@@ -1,4 +1,4 @@
-import { PlanoAcao } from 'src/components/PlanAcaoTable';
+import { type PlanoAcao } from 'src/hooks/useAcoes';
 import { create } from 'zustand';
 
 type AcaoModalStore = {

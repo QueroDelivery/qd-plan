@@ -1,1 +1,1 @@
-export { PlanAcaoTable, type PlanoAcao } from './PlanAcaoTable';
+export { PlanAcaoTable } from './PlanAcaoTable';
