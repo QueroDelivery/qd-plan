@@ -169,7 +169,10 @@ const AcaoModal = () => {
                   <Switch
                     className="data-[state=checked]:bg-purple-500"
                     checked={field.value}
-                    onCheckedChange={field.onChange}
+                    onCheckedChange={(checked) => {
+                      field.onChange(checked);
+                      if (!checked) form.setValue('credito', checked);
+                    }}
                   />
                 </FormControl>
                 <FormMessage />
@@ -189,20 +192,20 @@ const AcaoModal = () => {
                     className="data-[state=checked]:bg-purple-500"
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    disabled={!form.watch('places')}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
         </div>
         {form.watch('places') && (
           <PlacesLancamentos
+            hasLancamentos={form.watch('credito')}
             placeIds={(data?.placeIds as string) || ''}
             municipioId={data?.municipioId as string}
           />
         )}
-        {form.watch('credito') && <div>Lançamentos</div>}
         <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           <FormField
             control={form.control}
