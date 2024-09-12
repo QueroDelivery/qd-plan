@@ -1,15 +1,22 @@
-import Select from 'react-select';
+import Select, { MultiValue } from 'react-select';
 import { ImSpinner8 } from 'react-icons/im';
 import usePlaces from 'src/hooks/usePlaces';
 import { multiSelectStyles } from 'src/styles/selectStyles';
+import { useState } from 'react';
 
 const PlacesLancamentos = ({
   municipioId,
   placeIds,
+  hasLancamentos,
 }: {
   municipioId: string;
   placeIds: string;
+  hasLancamentos: boolean;
 }) => {
+  const [selectedPlaces, setSelectedPlaces] = useState<MultiValue<{
+    value: string;
+    label: string;
+  }> | null>(null);
   const placesQuery = usePlaces(municipioId);
 
   if (placesQuery.isLoading)
@@ -30,11 +37,13 @@ const PlacesLancamentos = ({
   );
 
   return (
-    <div>
+    <div className="flex flex-col gap-6">
       <Select
         defaultValue={defaultSelectValues}
         isMulti
         options={options}
+        value={selectedPlaces || defaultSelectValues}
+        onChange={(value) => setSelectedPlaces(value)}
         name="places"
         className="basic-multi-select"
         classNamePrefix="select"
@@ -42,6 +51,7 @@ const PlacesLancamentos = ({
         placeholder="Selecionar..."
         styles={multiSelectStyles}
       />
+      {hasLancamentos && <div>Lançamentos</div>}
     </div>
   );
 };
