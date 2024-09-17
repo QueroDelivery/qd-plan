@@ -4,6 +4,7 @@ import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import { type Lancamentos } from 'src/hooks/useLancamentos';
 import { Input } from 'src/components/ui/input';
 import { MultiValue } from 'react-select';
+import { LoadingSpinner } from 'src/LoadingSpinner';
 
 type Option = {
   label: string;
@@ -62,7 +63,7 @@ const Lancamentos = ({ planAcaoId, places }: LancamentosProps) => {
     };
   });
 
-  if (isPending) return 'Loading...';
+  if (isPending) return <LoadingSpinner />;
 
   if (data) {
     return <LancamentosTable data={refinedData} columns={columns} />;
