@@ -1,6 +1,6 @@
-import { ImSpinner8 } from 'react-icons/im';
 import Select from 'react-select';
 import useTipoAcoes from 'src/hooks/useTipoAcoes';
+import { LoadingSpinner } from 'src/LoadingSpinner';
 import { singleSelectStyles } from 'src/styles/selectStyles';
 
 export type Option = {
@@ -22,11 +22,7 @@ const AcoesSelect = ({ value, onChange }: TAcoesSelect) => {
   }));
 
   if (tipoAcoesQuery.isPending) {
-    return (
-      <div className="flex justify-center items-center">
-        <ImSpinner8 className="animate-spin text-purple-500" size={24} />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (

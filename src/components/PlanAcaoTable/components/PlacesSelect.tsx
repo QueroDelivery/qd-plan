@@ -1,6 +1,6 @@
-import { ImSpinner8 } from 'react-icons/im';
 import Select from 'react-select';
 import usePlaces from 'src/hooks/usePlaces';
+import { LoadingSpinner } from 'src/LoadingSpinner';
 import { singleSelectStyles } from 'src/styles/selectStyles';
 
 type Option = {
@@ -23,11 +23,7 @@ const PlacesSelect = ({ value, onChange, municipioId }: TPlacesSelect) => {
   }));
 
   if (placesQuery.isPending) {
-    return (
-      <div className="flex justify-center items-center">
-        <ImSpinner8 className="animate-spin text-purple-500" size={24} />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
