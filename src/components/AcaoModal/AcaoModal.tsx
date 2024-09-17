@@ -204,6 +204,7 @@ const AcaoModal = () => {
             hasLancamentos={form.watch('credito')}
             placeIds={(data?.placeIds as string) || ''}
             municipioId={data?.municipioId as string}
+            planAcaoId={data?.planoAcaoId as number}
           />
         )}
         <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
