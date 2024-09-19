@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ColumnDef,
   flexRender,
@@ -13,15 +14,15 @@ import {
   TableRow,
 } from 'src/components/ui/table';
 
-interface LancamentosTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface LancamentosTableProps<TData, TColumnType> {
+  columns: TColumnType;
   data: TData[];
 }
 
-const LancamentosTable = <TData, TValue>({
-  data,
-  columns,
-}: LancamentosTableProps<TData, TValue>) => {
+function LancamentosTable<
+  TData,
+  TColumnType extends Array<ColumnDef<TData, any>>
+>({ data, columns }: LancamentosTableProps<TData, TColumnType>) {
   const table = useReactTable({
     data,
     columns,
@@ -75,6 +76,6 @@ const LancamentosTable = <TData, TValue>({
       </Table>
     </div>
   );
-};
+}
 
 export { LancamentosTable };
