@@ -1,10 +1,11 @@
 import useLancamentos from 'src/hooks/useLancamentos';
 import { LancamentosTable } from './LancamentosTable';
-import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
+import { createColumnHelper } from '@tanstack/react-table';
 import { type Lancamentos } from 'src/hooks/useLancamentos';
-import { Input } from 'src/components/ui/input';
 import { MultiValue } from 'react-select';
 import { LoadingSpinner } from 'src/LoadingSpinner';
+import { FormLancamentos } from 'src/components/FormLancamentos/FormLancamentos';
+import { useMemo } from 'react';
 
 type Option = {
   label: string;
@@ -18,15 +19,17 @@ type LancamentosProps = {
 
 type LancamentosValue = Omit<Lancamentos, 'placeId'>;
 
-type LancamentosTableData = {
+export type LancamentosTableData = {
   placeId: string;
   placeName: string;
   valorCredito: number;
+  lancamentoId?: number;
+  planoAcaoId?: number;
 };
 
 const columnHelper = createColumnHelper<LancamentosTableData>();
 
-const columns: ColumnDef<LancamentosTableData, any>[] = [
+const columns = [
   columnHelper.accessor('placeId', {
     header: () => <span className="text-purple-500">PlaceId</span>,
     cell: (props) => props.getValue(),
@@ -38,8 +41,8 @@ const columns: ColumnDef<LancamentosTableData, any>[] = [
   columnHelper.accessor('valorCredito', {
     header: () => <span className="text-purple-500">Valor do crédito</span>,
     cell: (props) => {
-      const value = props.getValue();
-      return <Input type="number" value={value} />;
+      const row = props.row.original;
+      return <FormLancamentos row={row} />;
     },
   }),
 ];
@@ -47,21 +50,39 @@ const columns: ColumnDef<LancamentosTableData, any>[] = [
 const Lancamentos = ({ planAcaoId, places }: LancamentosProps) => {
   const { data, isPending } = useLancamentos(planAcaoId);
 
-  const lancamentosMap = new Map<string, LancamentosValue>();
+  const lancamentosMap = useMemo(
+    () =>
+      new Map<string, LancamentosValue>(
+        data?.map((lancamento) => {
+          const { placeId, ...value } = lancamento;
+          return [placeId, value];
+        })
+      ),
+    [data]
+  );
 
-  data?.forEach((lancamento) => {
-    const { placeId, ...value } = lancamento;
-    lancamentosMap.set(placeId, value);
-  });
+  const refinedData = useMemo(
+    () =>
+      places.map((place) => {
+        const result = lancamentosMap.get(place.value);
 
-  const refinedData = places.map((place) => {
-    const result = lancamentosMap.get(place.value);
-    return {
-      placeId: place.value,
-      placeName: place.label,
-      valorCredito: result?.valorCredito || 0,
-    };
-  });
+        const row = {
+          placeId: place.value,
+          placeName: place.label,
+          valorCredito: 0,
+        };
+
+        if (!result) return row;
+
+        return {
+          ...row,
+          valorCredito: result.valorCredito,
+          lancamentoId: result.lancamentoId,
+          planoAcaoId: result.planoAcaoId,
+        };
+      }),
+    [lancamentosMap, places]
+  );
 
   if (isPending) return <LoadingSpinner />;
 
