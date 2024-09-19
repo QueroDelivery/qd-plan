@@ -43,41 +43,43 @@ const AcoesPage = () => {
         Metas e ações
       </h1>
       <div className="container py-8 mx-auto min-w-[336px] space-y-8">
-        <Select
-          options={options}
-          placeholder="Cidade"
-          isMulti={false}
-          noOptionsMessage={() => 'Cidade não encontrada.'}
-          onChange={(option) => setMunicipioId(option?.value as string)}
-          styles={singleSelectStyles}
-        />
-        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                'w-full pl-3 text-left font-normal text-gray-500 hover:text-gray-500 text-md rounded hover:bg-transparent hover:shadow transition-all border-gray-300'
-              )}
-            >
-              {date?.toLocaleDateString('pt-BR') === currentDate ? (
-                <span>Data Personalizada</span>
-              ) : (
-                date?.toLocaleDateString('pt-BR')
-              )}
-              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              locale={ptBR}
-              mode="single"
-              selected={date}
-              onSelect={handleDateSelect}
-              disabled={(date) => date < new Date('1900-01-01')}
-              defaultMonth={date}
-            />
-          </PopoverContent>
-        </Popover>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[720px]">
+          <Select
+            options={options}
+            placeholder="Cidade"
+            isMulti={false}
+            noOptionsMessage={() => 'Cidade não encontrada.'}
+            onChange={(option) => setMunicipioId(option?.value as string)}
+            styles={singleSelectStyles}
+          />
+          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  'w-full pl-3 text-left font-normal text-gray-500 hover:text-gray-500 text-md rounded hover:bg-transparent hover:shadow transition-all border-gray-300'
+                )}
+              >
+                {date?.toLocaleDateString('pt-BR') === currentDate ? (
+                  <span>Data Personalizada</span>
+                ) : (
+                  date?.toLocaleDateString('pt-BR')
+                )}
+                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                locale={ptBR}
+                mode="single"
+                selected={date}
+                onSelect={handleDateSelect}
+                disabled={(date) => date < new Date('1900-01-01')}
+                defaultMonth={date}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
         {municipioId ? (
           <>
             <MetasMunicipio
