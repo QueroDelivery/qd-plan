@@ -5,6 +5,7 @@ import {
   CiShoppingCart,
   CiLogout,
 } from 'react-icons/ci';
+import { PiCakeThin } from 'react-icons/pi';
 import { SidebarItem } from './components/SidebarItem';
 import { BrandLogo } from '../BrandLogo';
 
@@ -13,6 +14,11 @@ export const items = [
     label: 'Minha Agenda',
     icon: CiCalendarDate,
     href: '/calendario',
+  },
+  {
+    label: 'Feriados',
+    icon: PiCakeThin,
+    href: '/feriados',
   },
   {
     label: 'Influencers',
