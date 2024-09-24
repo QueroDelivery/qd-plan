@@ -13,6 +13,7 @@ import {
 import { Button } from 'src/components/ui/button';
 import { CalendarIcon } from 'lucide-react';
 import { cn } from 'src/lib/utils';
+import { Heading } from 'src/components/Heading';
 
 const AcoesPage = () => {
   const [municipioId, setMunicipioId] = useState<string | null>(null);
@@ -39,9 +40,7 @@ const AcoesPage = () => {
 
   return (
     <div className="flex flex-col overflow-x-hidden min-h-[calc(100vh-5rem)]">
-      <h1 className="text-xl md:text-2xl font-bold text-purple-500 px-6 py-4 border-b border-gray-300/60">
-        Metas e ações
-      </h1>
+      <Heading className="border-b border-gray-300/60">Metas e ações</Heading>
       <div className="container py-8 mx-auto min-w-[336px] space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[720px]">
           <Select
