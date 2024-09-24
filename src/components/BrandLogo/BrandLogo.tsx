@@ -1,7 +1,14 @@
-import logo from '../../assets/quero_logo_roxo_v.webp';
+import { useNavigate } from 'react-router-dom';
+import logo from 'src/assets/quero_logo_roxo_v.webp';
 
 const BrandLogo = () => {
-  return <img src={logo} alt="brand logo" />;
+  const navigate = useNavigate();
+
+  return (
+    <button onClick={() => navigate('/')}>
+      <img src={logo} alt="brand logo" />
+    </button>
+  );
 };
 
 export { BrandLogo };
