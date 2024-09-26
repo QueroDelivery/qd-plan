@@ -1,16 +1,21 @@
 import { Header } from './components/Header';
+import { HolidaysCalendar } from './components/HolidaysCalendar';
 import { Sidebar } from './components/Sidebar';
-import { AcoesPage } from './pages/AcoesPage/AcoesPage';
+import { AcoesPage } from './pages/AcoesPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <Header />
-      <div className="grid grid-cols-only-content xl:grid-cols-sidebar-content">
+    <div className="grid grid-cols-only-content xl:grid-cols-sidebar-content">
+      <Router>
+        <Header />
         <Sidebar />
-        <AcoesPage />
-      </div>
-    </>
+        <Routes>
+          <Route path="/" element={<AcoesPage />} />
+          <Route path="/feriados" element={<HolidaysCalendar />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
