@@ -1,9 +1,19 @@
 import { ImSpinner8 } from 'react-icons/im';
+import { cn } from 'src/lib/utils';
 
-const LoadingSpinner = ({ size = 24 }: { size?: number }) => {
+const LoadingSpinner = ({
+  size = 24,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}) => {
   return (
     <div className="flex justify-center items-center">
-      <ImSpinner8 className="animate-spin text-purple-500" size={size} />
+      <ImSpinner8
+        className={cn('animate-spin text-purple-500', className)}
+        size={size}
+      />
     </div>
   );
 };
