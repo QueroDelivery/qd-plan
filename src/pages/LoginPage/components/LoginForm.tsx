@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { PiEyeLight, PiEyeSlashLight } from 'react-icons/pi';
+import { IoIosAlert } from 'react-icons/io';
 import { Button } from 'src/components/ui/button';
 import {
   Form,
@@ -13,38 +14,66 @@ import { Input } from 'src/components/ui/input';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { login } from 'src/services/auth/authService';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LoadingSpinner } from 'src/LoadingSpinner';
+import { useMutation } from '@tanstack/react-query';
+
+export type FormCredentials = z.infer<typeof loginFormSchema>;
 
 const loginFormSchema = z.object({
-  email: z
+  login: z
     .string()
     .min(1, 'O e-mail é obrigatório.')
     .email('Por favor, insira um e-mail válido.'),
-  password: z.string().min(1, 'A senha é obrigatória.'),
+  pass: z.string().min(1, 'A senha é obrigatória.'),
 });
 
 const LoginForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const form = useForm<z.infer<typeof loginFormSchema>>({
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const form = useForm<FormCredentials>({
     defaultValues: {
-      email: '',
-      password: '',
+      login: '',
+      pass: '',
     },
     resolver: zodResolver(loginFormSchema),
     mode: 'onSubmit',
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = (data: z.infer<typeof loginFormSchema>) => {
-    console.log(data);
+  const {
+    mutate: authenticateUser,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      const redirectTo = searchParams.get('to') || '/';
+      navigate(redirectTo, {
+        replace: true,
+      });
+    },
+  });
+
+  const onSubmit = async (data: FormCredentials) => {
+    authenticateUser(data);
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
+        {error && (
+          <div className="flex items-center gap-2 rounded-md border-[1px] bg-red-200/50 border-red-500/60 p-2 my-5">
+            <IoIosAlert color="red" />
+            <span className="text-sm">{error.message}</span>
+          </div>
+        )}
         <div className="space-y-4">
           <FormField
             control={form.control}
-            name="email"
+            name="login"
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <FormLabel className="text-neutral-500 tracking-wide font-normal">
@@ -62,7 +91,7 @@ const LoginForm = () => {
           />
           <FormField
             control={form.control}
-            name="password"
+            name="pass"
             render={({ field }) => (
               <FormItem className="space-y-1">
                 <FormLabel className="text-neutral-500 tracking-wide font-normal">
@@ -97,7 +126,7 @@ const LoginForm = () => {
           type="submit"
           className="w-full text-md font-semibold bg-purple-500 hover:bg-purple-600 rounded-full h-12 transition-all mt-10"
         >
-          Entrar
+          {isPending ? <LoadingSpinner className="text-white" /> : 'Entrar'}
         </Button>
       </form>
     </Form>
