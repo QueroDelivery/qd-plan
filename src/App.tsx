@@ -1,21 +1,15 @@
-import { HolidaysCalendar } from './components/HolidaysCalendar';
-import { AcoesPage } from './pages/AcoesPage';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { LoginPage } from './pages/LoginPage';
-import { MainLayout } from './components/MainLayout';
+import { Outlet } from 'react-router-dom';
+import { ScreenLoader } from './components/ScreenLoader';
+import useAppLogin from './hooks/useAppLogin';
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<AcoesPage />} />
-          <Route path="/feriados" element={<HolidaysCalendar />} />
-        </Route>
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </Router>
-  );
+  const { loading } = useAppLogin();
+
+  if (loading) {
+    return <ScreenLoader />;
+  }
+
+  return <Outlet />;
 }
 
 export default App;
