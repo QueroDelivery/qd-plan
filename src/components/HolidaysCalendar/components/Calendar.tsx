@@ -7,7 +7,7 @@ import { CalendarDate } from './CalendarDate';
 import './customCalendar.css';
 import { useRef, useState } from 'react';
 import type { MunicipioValue } from '../HolidaysCalendar';
-import { LoadingSpinner } from 'src/LoadingSpinner';
+import { LoadingSpinner } from 'src/components/LoadingSpinner';
 
 const events = [
   {

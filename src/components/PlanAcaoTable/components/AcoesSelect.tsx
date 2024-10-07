@@ -1,6 +1,6 @@
 import Select from 'react-select';
 import useTipoAcoes from 'src/hooks/useTipoAcoes';
-import { LoadingSpinner } from 'src/LoadingSpinner';
+import { LoadingSpinner } from 'src/components/LoadingSpinner';
 import { singleSelectStyles } from 'src/styles/selectStyles';
 
 export type Option = {

@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { login } from 'src/services/auth/authService';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { LoadingSpinner } from 'src/LoadingSpinner';
+import { LoadingSpinner } from 'src/components/LoadingSpinner';
 import { useMutation } from '@tanstack/react-query';
 
 export type FormCredentials = z.infer<typeof loginFormSchema>;

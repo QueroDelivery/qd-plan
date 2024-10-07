@@ -3,7 +3,7 @@ import { LancamentosTable } from './LancamentosTable';
 import { createColumnHelper } from '@tanstack/react-table';
 import { type Lancamentos } from 'src/hooks/useLancamentos';
 import { MultiValue } from 'react-select';
-import { LoadingSpinner } from 'src/LoadingSpinner';
+import { LoadingSpinner } from 'src/components/LoadingSpinner';
 import { FormLancamentos } from 'src/components/FormLancamentos/FormLancamentos';
 import { useMemo } from 'react';
 

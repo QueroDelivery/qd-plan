@@ -1,6 +1,6 @@
 import Select from 'react-select';
 import usePlaces from 'src/hooks/usePlaces';
-import { LoadingSpinner } from 'src/LoadingSpinner';
+import { LoadingSpinner } from 'src/components/LoadingSpinner';
 import { singleSelectStyles } from 'src/styles/selectStyles';
 
 type Option = {
