@@ -1,4 +1,6 @@
-import httpClient, { setAuthorizationToken } from 'src/axiosClient';
+import httpClient, {
+  setAuthorizationToken,
+} from 'src/config/lib/axios/api-client';
 import useAuthStore, { User } from 'src/store/useAuthStore';
 import Cookies from 'js-cookie';
 import { FormCredentials } from 'src/pages/LoginPage/components/LoginForm';

@@ -12,7 +12,7 @@ import {
 } from 'src/components/ui/popover';
 import { Button } from 'src/components/ui/button';
 import { CalendarIcon } from 'lucide-react';
-import { cn } from 'src/lib/utils';
+import { cn } from 'src/config/lib/shadcn/utils';
 import { Heading } from 'src/components/Heading';
 
 const AcoesPage = () => {

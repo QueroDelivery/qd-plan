@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import httpClient from 'src/axiosClient';
+import httpClient from 'src/config/lib/axios/api-client';
 
 type MetasMunicipio = {
   meta: number | null;

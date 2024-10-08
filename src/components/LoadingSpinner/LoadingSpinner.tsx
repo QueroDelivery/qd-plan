@@ -1,5 +1,5 @@
 import { ImSpinner8 } from 'react-icons/im';
-import { cn } from 'src/lib/utils';
+import { cn } from 'src/config/lib/shadcn/utils';
 
 const LoadingSpinner = ({
   size = 24,
